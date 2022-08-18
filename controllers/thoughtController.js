@@ -18,5 +18,10 @@ module.exports = {
                 : res.json(thought)
             ).catch((err) => res.status(500).json(err))
     },
+    createNewThought(req,es){},
+    updateThought(req,res){},
+    deleteThought(req,res){},
+    addReaction(req,res){},
+    removeReaction(req,res){}
     
 }

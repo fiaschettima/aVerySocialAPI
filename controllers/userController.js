@@ -8,4 +8,9 @@ module.exports = {
     getOneUser(req,res) {
 
     },
+    createNewUser(req,res){},
+    updateUser(req,res){},
+    deleteUser(req,res){},
+    addFriend(req,res){},
+    removeFriend(req,res){}
 }
