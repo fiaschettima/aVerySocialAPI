@@ -5,8 +5,16 @@ const reactionSchema = new Schema({
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId(),
     },
-    reactionBody:{},
-    usernname:{},
+    reactionBody:{
+        type: String,
+        required: true,
+        maxLength: 280,
+
+    },
+    usernname:{
+        type: String,
+        required: true,
+    },
     createdAt:{}
 }
 )
