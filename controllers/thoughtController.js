@@ -40,8 +40,35 @@ module.exports = {
                 : res.json(thought)    
             ).catch((err) => res.status(500).json(err))
     },
-    deleteThought(req,res){},
-    addReaction(req,res){},
-    removeReaction(req,res){}
+    deleteThought(req,res){
+        thought.findOneAndDelete({_id : req.params.thoughtid})
+            .then((thought) => 
+                !thought
+                    ? res.status(404).json({ message: 'No thought with that id' })
+                    : res.json(thought, {message: 'Was Deleted'})    
+                ).catch((err) => res.status(500).json(err))
+    },
+    addReaction(req,res){
+        thought.findOneAndUpdate(
+            {_id: req.params.thoughtid},
+            {$addToSet: {reactions: req.body}},
+            {runValidators: true, new: true}
+        ).then((thought) => 
+            !thought
+            ? res.status(404).json({ message: 'No thought with that id' })
+            : res.json(thought)    
+        ).catch((err) => res.status(500).json(err))
+    },
+    removeReaction(req,res){
+        thought.findOneAndUpdate(
+            {_id: req.params.thoughtid},
+            {$pull: {reactions: req.body}},
+            {runValidators: true, new: true}
+        ).then((thought) => 
+            !thought
+            ? res.status(404).json({ message: 'No thought with that id' })
+            : res.json(thought)    
+        ).catch((err) => res.status(500).json(err))
+    }
     
 }
