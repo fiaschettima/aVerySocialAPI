@@ -1,44 +1,18 @@
 const router = require('express').Router();
-const { user, thought } = require('../../models');
+const { 
+    getAThought,
+    getAllThoughts,
+    createNewThought,
+    updateThought,
+    deleteThought,
+    addReaction,
+    removeReaction
+} = require('../../controllers//thoughtController');
 
+router.route('/').get(getAllThoughts).post(createNewThought);
 
-// Get All thoughts----------------------------------------------------------------
-router.get('/', async (req,res) => {
-    try{
-        res.status(200).json()
-    }catch(err){
-        res.status(500).json(err)
-    }
-});
-// Get A Single thought----------------------------------------------------------------
-router.get('/:id', async (req,res) => {
-    try{
-        res.status(200).json()
-    }catch(err){
-        res.status(500).json(err)
-    }
-});
-// Post a new thought ----------------------------------------------------------------
-router.post('/', async (req,res) => {
-    try{
-        res.status(200).json()
-    }catch(err){
-        res.status(500).json(err)
-    }
-});
-// Post a reaction to a single thought----------------------------------------------------------------
-router.post('/:thoughtId/reactions', async (req,res) => {
-    try{
-        res.status(200).json()
-    }catch(err){
-        res.status(500).json(err)
-    }
-});
-// Delete a reaction to a single thought----------------------------------------------------------------
-router.post('/:thoughtId/:reactionId', async (req,res) => {
-    try{
-        res.status(200).json()
-    }catch(err){
-        res.status(500).json(err)
-    }
-});
+router.route('/:thoughtid').get(getAThought).put(updateThought).delete(deleteThought);
+
+router.route('/:thoughtid/reactions').post(addReaction).delete(removeReaction);
+
+module.exports = router;

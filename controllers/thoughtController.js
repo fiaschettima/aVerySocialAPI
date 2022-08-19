@@ -9,7 +9,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
     getAThought(req,res){
-        thought.findOne({_id : req.params.id})
+        thought.findOne({_id : req.params.thoughtid})
             .select('-__V')
             .populate('reactions')
             .then((thought) =>
@@ -18,18 +18,18 @@ module.exports = {
                 : res.json(thought)
             ).catch((err) => res.status(500).json(err))
     },
-    createNewThought(req,es){
+    createNewThought(req, res){
         thought.create(req.body)
             .then((thought) => {
-                return User.findOneAndUpdate(
+                 return User.findOneAndUpdate(
                     {_id: req.body.userId},
                     {$addToSet : {thoughts : thought._id}},
                     {new: true}
                 )
             }).then((user) => 
                 !user   
-                ? res.status(404).json({ message: 'No user with that id' })
-                : res.json(user)    
+                    ? res.status(404).json({ message: 'No user with that id' })
+                    : res.json(user)    
             ).catch((err) => res.status(500).json(err))
     },
     updateThought(req,res){
@@ -37,7 +37,7 @@ module.exports = {
             .then((thought) =>
                 !thought
                 ? res.status(404).json({ message: 'No thought with that id' })
-                : res.json(thought)    
+                : res.json("thought updated")    
             ).catch((err) => res.status(500).json(err))
     },
     deleteThought(req,res){
@@ -45,7 +45,7 @@ module.exports = {
             .then((thought) => 
                 !thought
                     ? res.status(404).json({ message: 'No thought with that id' })
-                    : res.json(thought, {message: 'Was Deleted'})    
+                    : res.json({message : "Thought Deleted"})    
                 ).catch((err) => res.status(500).json(err))
     },
     addReaction(req,res){
@@ -62,7 +62,7 @@ module.exports = {
     removeReaction(req,res){
         thought.findOneAndUpdate(
             {_id: req.params.thoughtid},
-            {$pull: {reactions: req.body}},
+            {$pull: {reactions: req.body.reactionId}},
             {runValidators: true, new: true}
         ).then((thought) => 
             !thought
