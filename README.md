@@ -6,6 +6,8 @@ This project is a sample backend of a potential social media site, utilizing Mon
 
 [Link to Live Video](https://drive.google.com/file/d/1fKOVy6r5dJq7ojo_ALoYxHYHm5NS8hmn/view)
 
+![Link to Live Video](./Assets/Images/demo.gif)
+
 ---
 
 Here's a few quick links:
