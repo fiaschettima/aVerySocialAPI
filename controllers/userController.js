@@ -6,17 +6,16 @@ module.exports = {
         .catch((err) => res.status(500).json(err))
     },
     getOneUser(req,res) {
-
-        User.findOne({ _id: req.params.userId })
+        User.findOne({ _id: req.params.userid })
         .select('-__v')
         .populate('thoughts')
         .populate('friends')
-        .then((user) =>
+        .then((user) =>{
             !user
                 ? res.status(404).json({ message: 'No user with that id' })
                 : res.json(user)
-        )
-        .catch((err) => res.status(500).json(err));
+    })
+        .catch((err) => res.status(500).json(err))
             
     },
     createNewUser(req,res){
